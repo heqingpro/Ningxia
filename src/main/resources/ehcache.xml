@@ -1,0 +1,31 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="../config/ehcache.xsd"> 
+	<!-- 磁盘缓存路径 -->
+    <diskStore path="java.io.tmpdir"/>
+
+   	<defaultCache  
+         maxElementsInMemory="10000"  
+         eternal="false"  
+         timeToIdleSeconds="24000"  
+         timeToLiveSeconds="24000"  
+         overflowToDisk="true"  
+         maxElementsOnDisk="50000"  
+         diskPersistent="false"  
+         diskExpiryThreadIntervalSeconds="120"  
+         memoryStoreEvictionPolicy="LRU"  
+     />  
+
+	<!-- 查询缓存需要开启 -->
+	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+		    maxElementsInMemory="5000" 
+		    eternal="true" 
+		    overflowToDisk="true" />
+	
+	<!-- 存活时间12h -->
+	<cache name="org.hibernate.cache.internal.StandardQueryCache"
+		    maxElementsInMemory="20000" 
+		    eternal="false"
+		    timeToLiveSeconds="43200"
+		    overflowToDisk="true" />
+	
+</ehcache>

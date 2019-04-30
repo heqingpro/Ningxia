@@ -1,0 +1,69 @@
+server:
+  context-path: /NingxiaZW
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate: 
+        hbm2ddl: 
+          auto: update
+        show_sql: true
+        format_sql: false
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region: 
+            factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory  
+      javax:
+        persistence: 
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+  datasource:
+    url: ${datasource.url}
+    username: ${datasource.username}
+    password: ${datasource.password}
+    driver-class-name: com.mysql.jdbc.Driver
+    druid: 
+      initial-size: 1
+      max-active: 20
+      min-idle: 1
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 'x'
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      filters: stat,wall,slf4j
+      logType: slf4j
+      web-stat-filter: 
+        enabled: true
+        url-pattern: /*
+        exclusions: /druid/*,*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,
+        session-stat-enable: true
+        session-stat-max-count: 
+        principal-session-name: 
+        principal-cookie-name: 
+        profile-enable: true
+      stat-view-servlet: 
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: admin
+        login-password: admin
+        allow: 
+        deny: 
+      aop-patterns: cn.ipanel.ningxia.service.*,cn.ipanel.ningxia.dao.*
+      filter:
+        stat:
+          enabled: true
+          slow-sql-millis: 2000
+          log-slow-sql: true
+        slf4j:
+          enabled: true
+          datasource-log-enabled: true
+          statement-executable-sql-log-enable: true
+          result-set-log-enabled: true
